@@ -4,7 +4,7 @@ theme: uncover
 paginate: true
 backgroundColor: #000
 color: #fff
-backgroundImage: url("spider poster-light.svg")
+backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/spider poster-light.svg")
 ---
 <style>
   :root{
@@ -63,7 +63,7 @@ backgroundImage: url("spider poster-light.svg")
 
 ---
 
-![bg right 80%](img/dc.webp)
+![bg right 80%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/dc.webp)
 
 
 # Discord
@@ -123,7 +123,7 @@ for i in range(1, 6):
 <!-- _backgroundImage: #000 -->
 
 # 下載並安裝
-![width:1000](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/VSCode.png)
+![width:1000](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/VSCode.png)
 
 ---
 
@@ -135,7 +135,7 @@ for i in range(1, 6):
 
 ### 下載完後執行
 
-![width:1000](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/py.png)
+![width:1000](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/py.png)
 
 ---
 
@@ -144,7 +144,7 @@ for i in range(1, 6):
  Add python.exe to PATH 記得打勾
  忘記就重裝，不然很麻煩
 
-![width:800](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/py2.png)
+![width:800](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/py2.png)
 
 ---
 
@@ -152,7 +152,7 @@ for i in range(1, 6):
 
 ### 安裝vscode插件
 
-![width:800](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/py3.png)
+![width:800](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/py3.png)
 
 ---
 
@@ -406,14 +406,14 @@ for i in range(1,5):
 超文本標記語言(HyperText Markup Language)
 網站的骨架
 
-![HTML,css,js w:400](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/骨架、外觀、行為.png)
+![HTML,css,js w:400](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/骨架、外觀、行為.png)
 
 ---
 
 # 元素
 
 網站所有東西都是由元素組成
-![w:1000 ](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/element.svg)
+![w:1000 ](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/element.svg)
 
 ---
 
@@ -474,8 +474,8 @@ for i in range(1,5):
 
 ---
 ![bg 95%](https://4.bp.blogspot.com/-xZR9-dxRN4c/WHWDqjLLj7I/AAAAAAAFPiM/nn_ErIHYmxcvGh_RupSSYoU5e6e1SpPxwCEw/s1600/Bus%252B%2B%25E7%25AD%2589%25E5%2585%25AC%25E8%25BB%258A%2BApp-04.png)
-![bg 76%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/毛哥電台1.jpg)
-![bg 76%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/毛哥電台2.jpg)
+![bg 76%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/毛哥電台1.jpg)
+![bg 76%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/毛哥電台2.jpg)
 
 ---
 
@@ -558,7 +558,12 @@ pip3 install beautifulsoup4
 
 ---
 
-<!-- _class: lead -->
+# 下載
+```
+pip3 install requests beautifulsoup4 html5lib
+```
+---
+
 # 靜態爬蟲實作
 <div class=l style=margin-left:80px>
 
@@ -571,22 +576,68 @@ pip3 install beautifulsoup4
 
 ---
 
-# 這邊以校園公告為例
+### 試試看
 
-### 下載
-```
-pip3 install requests
-```
-```
-pip3 install beautifulsoup4
+```python
+import requests
+from bs4 import BeautifulSoup
+a = ""
+url = 'https://zh.wikipedia.org/zh-tw/臺中高工'
+
+response = requests.get(url)
+if response.status_code == 200:
+    page_content = response.text
+    print(wiki)
 ```
 
 ---
 
+我們來抓抓看維基百科條目的第一段介紹8
+
+```python
+import requests
+from bs4 import BeautifulSoup
+url = 'https://zh.m.wikipedia.org/zh-tw/台中高工'
+response = requests.get(url)
+if response.status_code == 200:
+    page_content = response.text
+    soup = BeautifulSoup(page_content, 'html5lib')
+
+    wiki = soup.find_all('p')[0].get_text()
+    if wiki.replace("\n", "").strip() == '':
+        wiki = soup.find_all('p')[1].get_text()
+    print(wiki)
+```
+
+---
+
+<!-- _backgroundImage: #000 -->
+
+> 臺中市立臺中工業高級中等學校，簡稱臺中高工、中工，是一所位於臺灣臺中市南區的技術型高級中等學校，創立於1938年，最初校名為臺中州立臺中工業學校，首任校長為村田
+務；1955年中華民國教育部接受美援購買先進儀器將其模式導入包括該校及全國另外七所高工，為臺灣八大省工之一，現為教育部電機電子群科中心學校。該校對外交通較為便利
+，鄰近的交通設施有高鐵臺中站、大慶車站、捷運大慶站等。
+
+---
+
+# 挑戰
+
+先問使用者要爬哪個維基百科條目
+然後把他的第一段介紹爬下來顯示出來
+
+---
+
+# 解答
+
+```python
+
+# 爬爬校園公告
+
+---
+
 - 引入需要用到的模組
-- 進入到[神祕的地方](https://ljjhs.tc.edu.tw/p/403-1080-1244-1.php?Lang=zh-tw)複製他的網址
+- 進入到[學校公告](https://ljjhs.tc.edu.tw/p/403-1080-1244-1.php?Lang=zh-tw)並複製他的網址
 - 用名叫url的變數儲存這條網址(字串)
-- 以GET方式向網站請求資料，並儲存
+- 以GET方式向網站請求資料，並儲存到變數
 ```python
 from bs4 import BeautifulSoup
 import requests
@@ -597,9 +648,10 @@ print(response) #看看他的HTML
 
 ---
 
-- 把response丟給美麗湯4解析
+把response丟給美麗湯4解析
+
 ```python
-soup = BeautifulSoup(response, 'html5lib') #5
+soup = BeautifulSoup(response, 'html5lib')
 
 ```
 
@@ -609,20 +661,20 @@ soup = BeautifulSoup(response, 'html5lib') #5
 
 ---
 
-![Bulletin Board](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/bulletinBoard.png)
-- 不難發現，整個我們想要的資料都在這個tbody標籤中
+![Bulletin Board](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/bulletinBoard.png)
+不難發現，整個我們想要的資料都在這個tbody標籤中
 
 ---
 
-![Dev Tool](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/devTool.png)
-- 而在tbody中有一個一個**tr**標籤
-  - 在tr標籤內還有不同標籤，我們會focus在`<a>`和`<div>`
+![Dev Tool](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/devTool.png)
+
+而在tbody中有一個一個**td**標籤
 
 ---
 
-6. 找到tbody(資料的外框)
-7. 從tbody中找出所有的`<a>`
-8. 把它print出來看看
+1. 找到tbody(資料的外框)
+2. 從tbody中找出所有的`<a>`
+3. 把它print出來看看
 
 ```python
 tbody = soup.find('tbody') #6
@@ -632,15 +684,13 @@ print(a_tag_list) #8
 
 ---
 
-![bg fit 90%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/aTagResult.png)
+![bg fit 90%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/aTagResult.png)
 
 --- 
 
 - 可以發現他是個由`<tr>`底下的`<a>`組成的列表
 - 再來用for迴圈去跑這些`<a>`
   - 取裡面href跟title屬性的值存到list裡
-
----
 
 ```python
 
@@ -652,12 +702,8 @@ for a_tag in a_tag_list:
 
 ---
 
-- 除了連結跟標題外我們再蒐集日期
-  - 從P.22的圖片可以看出，日期是存在特定
-    td的div裡的，取出後一樣存在list裡
-
-
----
+除了連結跟標題外我們再蒐集日期。
+日期是存在特定td的div裡的，取出後一樣存在list裡
 
 ```python
 
@@ -667,7 +713,7 @@ for td_tag in td_tag_list:
     dates_list.append(div.text.strip())
 
 ```
-- strip()是用來刪去字串中某些特定字元的
+> strip()是用來刪去字串中某些特定字元的
   預設是空白
 
 ---
@@ -684,8 +730,15 @@ titles_list = []
 links_list = []
 dates_list = []
 response = requests.get(url).text#得到HTML
+```
+
+---
+
+<!-- _backgroundImage: #000 -->
+
+```python
 soup = BeautifulSoup(response, 'html5lib')#丟進美麗湯解析
-#print(response)
+
 tbody = soup.find('tbody')
 a_tag_list = tbody.find_all('a')
 for a_tag in a_tag_list:
@@ -695,6 +748,59 @@ td_tag_list = tbody.find_all('td', attrs={"data-th" : "日期"})
 for td_tag in td_tag_list:
     div = td_tag.find("div")
     dates_list.append(div.text.strip())
+
+for i in range(len(titles_list)):
+    print(dates_list[i],titles_list[i], links_list[i])
+```
+
+---
+
+## 乖乖讀公告的方式
+
+* RSS - 一種讓你輕鬆地追蹤網站的更新，類似於一個個性化新聞訂閱服務。(如:部落格文章，Podcast都會提供API讓你不需要使用爬蟲就可以取得資料)
+* API - 有些網站會提供一個網址讓你去請求資料，並且會以JSON格式回傳資料。
+
+---
+
+### 使用 API 來讀取台中高工的公告
+
+首先我們要先來看看[台中高工網頁](https://w3.tcivs.tc.edu.tw/ischool/widget/site_news/main2.php?uid=WID_0_2_a18324d5b18f53971c1d32b13dcfe427c6c77ed4&maximize=1&allbtn=0)是如何讀取公告的。
+可以在開發者工具看出他是去找[這個網址](https://w3.tcivs.tc.edu.tw/ischool/widget/site_news/news_query_json.php)並提供一些參數(伴手禮)來取得公告。我們只需要把這個網址複製下來，並且帶著伴手禮就可以偷到公告了，不需要去爬網頁還需要去整理 HTML。
+
+---
+<!-- _backgroundImage: #000 -->
+![bg contain](img/post-data.png)
+
+---
+
+![bg contain](img/response.png)
+
+---
+
+<!-- _backgroundImage: #000 -->
+
+## 範例程式碼
+
+```python
+import requests
+
+url = "https://w3.tcivs.tc.edu.tw/ischool/widget/site_news/news_query_json.php"
+data = {"field": "time", "order": "DESC", "pageNum": "0", "maxRows": "25", "keyword": "", "uid": "WID_0_2_a18324d5b18f53971c1d32b13dcfe427c6c77ed4", "tf": "1", "auth_type": "user"}
+response = requests.post(url, data=data)
+if response.status_code == 200:
+    news_data = response.json()
+
+    latest_news = news_data[1:6]
+    for news in latest_news:
+        date = news['time']
+        title = news['title']
+        news_id = news['newsId']
+        
+        print(f"日期: {date}\n{title},\nhttps://w3.tcivs.tc.edu.tw/ischool/public/news_view/show.php?nid={news_id}\n\n")
+else:
+    print(f"失敗代碼: {response.status_code}")
+
+
 ```
 
 ---
@@ -705,7 +811,7 @@ for td_tag in td_tag_list:
 ---
 
 # Selenium
-- 一種可以用程式語言(Python、C#、etc.)操作網頁
+- 可以用程式語言(Python、C#等等)操作網頁
 - 可以模擬使用者操作(點擊、填寫文字、滑動)
 
 ---
@@ -715,7 +821,7 @@ for td_tag in td_tag_list:
 
 ---
 
-![bg fit 50%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/dcard_intro.png)
+![bg fit 50%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/dcard_intro.png)
 
 ---
 
@@ -745,7 +851,7 @@ for td_tag in td_tag_list:
 
 ---
 
-![xpath](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/xpath.png)
+![xpath](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/xpath.png)
 
 ---
 
@@ -779,7 +885,7 @@ time.sleep(5) #等待網頁載入可以久一點點沒關係
 
 <!-- _backgroundImage: #000 -->
 
-![Dcard meme](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/dcardmeme.png)
+![Dcard meme](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/dcardmeme.png)
 - 可以發現圖片是用`<img>`表示
   - 更方便的是，他的連結就直接在src中，
   所以我們要做的就是請求那個連結後下載回傳的結果！
@@ -815,6 +921,7 @@ for i in range(0, 5): #可以把後面的值設定大一點，代表一次抓多
 ---
 
 #### **這邊講解一下為何不能直接載這個圖片：**
+
 因為我們這時候存到的link觀察一下可以發現
 它的結尾並不是正常的圖片格式，那我們直接
 請求後下載是沒有用的，我們必須請求後找到
@@ -822,29 +929,17 @@ for i in range(0, 5): #可以把後面的值設定大一點，代表一次抓多
 
 ---
 
-![bg 50%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/link1.png)
+![bg 50%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/link1.png)
 
 ---
 
 <!-- _backgroundImage: #000 -->
 
-![bg fit 90%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/LJSH-Spider/main/img/link2.png)
+![bg fit 90%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/link2.png)
 
 ---
 
-### 接下來就是下載的部分
-
----
-
-# **成果**
-
-
-PYTHON爬蟲營隊  
-講師:毛宥鈞
-
----
-
-# 下載圖片
+## 下載圖片
 
 ```py
 import requests
@@ -863,7 +958,8 @@ else:
 
 ---
 
-打開圖片
+## 打開圖片
+
 ```py
 import requests
 from PIL import Image
@@ -884,30 +980,6 @@ else:
     print("無法下載圖片")
 
 ```
-
----
-
-使用subprocess
-```py
-import requests
-import subprocess
-
-url = "圖片的連結"  # 替換為要下載的圖片連結
-response = requests.get(url)
-
-# 檢查圖片是否下載成功
-if response.status_code == 200:
-    with open("圖片檔名.jpg", "wb") as file:
-        file.write(response.content)
-        print("圖片下載成功")
-        
-    # 用系統的預設圖片檢視程式打開圖片
-    subprocess.run(["open", "圖片檔名.jpg"])
-else:
-    print("無法下載圖片")
-```
-
----
 
 # 迴圈
 
@@ -939,18 +1011,11 @@ download_images(image_links)
 ```
 ---
 
-![bg 80%](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/Web-Design-Camp/main/img/download.png)
-
----
-
-
 # 使用pyinstaller包裝成exe
 
-
-
 ---
 
-安裝pyinstaller
+安裝 pyinstaller
 
 ```bat
 pip3 install pyinstaller

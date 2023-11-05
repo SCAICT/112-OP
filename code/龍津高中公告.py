@@ -18,5 +18,5 @@ for td_tag in td_tag_list:
     dates_list.append(div.text.strip())
 
 for i in range(len(titles_list)):
-    print(titles_list[i], links_list[i], dates_list[i])
+    print(dates_list[i],titles_list[i], links_list[i])
     
