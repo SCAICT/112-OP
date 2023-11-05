@@ -39,6 +39,7 @@ backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/spide
 
 # 毛哥EM
 <div class="small">
+
 喜歡用科技進行各種創作
 
 如網頁設計、平面設計、音樂、電腦繪圖等
@@ -50,16 +51,18 @@ backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/spide
 
 
 
-![bg right](https://raw.githubusercontent.com/SYSH-Tech-Volunteer/Web-Design-Camp/main/group.jpg)
+![bg right 120%](img/EMr.png)
 
 ---
 
 # 今天要幹嘛
 
-- Py基本語法
-- 基本HTML
+- Python 基本語法
+- 基本 HTML
 - 爬蟲原理
 - 實作
+- 很多實作
+- 做不完的實作
 
 ---
 
@@ -67,14 +70,25 @@ backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/spide
 
 
 # Discord
-[點我](https://discord.gg/3wMeef9QP5)加入DC
+[點我](https://discord.gg/3wMeef9QP5)加入
+Delicious 的 DC
+<div class="small">
+Let's Dance
+</div>
 
 ---
 
 # 甚麼是 Python?
+Python 是一種直譯式、互動式、
+物件導向、腳本語言
+<div class="small">
 
-Python 是一種直譯式、互動式、物件導向、腳本語言。
-Guido van Rossum在1989花三個禮拜做的。
+<img src=https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Guido-portrait-2014-drc.jpg/375px-Guido-portrait-2014-drc.jpg style="filter: grayscale(100%) brightness(80%);">
+
+Guido van Rossum 可能因為常常找不到鍵盤上的分號
+或著是常常忘記宣告變數
+於是在1989花三個禮拜做出來這個語言
+</div>
 
 ---
 # 可以幹嘛
@@ -87,16 +101,18 @@ Guido van Rossum在1989花三個禮拜做的。
 * 演算法練習
 * 軟體開發
 * 大數據分析
+* 網頁應用
+
 </div>
 <div>
 
-* 網頁應用
 * 圖表繪製
 * 後端資料庫
 * AI 深度學習
 * 作業系統應用
 * 遊戲引擎
 * 韌體開發
+* ......
 
 </div>
 </div>
@@ -133,7 +149,7 @@ for i in range(1, 6):
 
 <!-- _backgroundImage: #000 -->
 
-### 下載完後執行
+下載完後執行
 
 ![width:1000](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/py.png)
 
@@ -150,7 +166,7 @@ for i in range(1, 6):
 
 <!-- _backgroundImage: #000 -->
 
-### 安裝vscode插件
+安裝 VSCode 插件
 
 ![width:800](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/py3.png)
 
@@ -194,12 +210,13 @@ x = input("給IG嗎")
 ---
 ## 實作時間
 #### 題目:詢問IG帳號，並輸出
-> 溫馨提醒: 字串前後要加上`''` or `""`
 
 ```bash
-給IG嗎?elvisdragonmao
+給IG嗎? elvisdragonmao
 IG是 elvisdragonmao
 ```
+
+> 溫馨提醒: 字串前後要加上`''` or `""`
 
 ---
 ## 解答
@@ -210,7 +227,7 @@ print(ig)
 ```
 
 ```python
-ig = input("給IG嗎?")
+ig = input("給IG嗎? ")
 print("我會追蹤", ig)
 ```
 
@@ -576,18 +593,34 @@ pip3 install requests beautifulsoup4 html5lib
 
 ---
 
+- 引入需要用到的模組
+- 進入到[學校公告](https://ljjhs.tc.edu.tw/p/403-1080-1244-1.php?Lang=zh-tw)並複製他的網址
+- 用名叫url的變數儲存這條網址(字串)
+- 以GET方式向網站請求資料，並儲存到變數
+```python
+from bs4 import BeautifulSoup
+import requests
+url = "網址"
+response = requests.get(url).text
+print(response) #看看他的HTML
+```
+
+---
 ### 試試看
 
 ```python
 import requests
 from bs4 import BeautifulSoup
-a = ""
 url = 'https://zh.wikipedia.org/zh-tw/臺中高工'
+response = requests.get(url).text
+print(wiki)
+```
+---
 
-response = requests.get(url)
-if response.status_code == 200:
-    page_content = response.text
-    print(wiki)
+把response丟給美麗湯4解析
+
+```python
+soup = BeautifulSoup(response, 'html5lib')
 ```
 
 ---
@@ -598,15 +631,12 @@ if response.status_code == 200:
 import requests
 from bs4 import BeautifulSoup
 url = 'https://zh.m.wikipedia.org/zh-tw/台中高工'
-response = requests.get(url)
-if response.status_code == 200:
-    page_content = response.text
-    soup = BeautifulSoup(page_content, 'html5lib')
-
-    wiki = soup.find_all('p')[0].get_text()
-    if wiki.replace("\n", "").strip() == '':
-        wiki = soup.find_all('p')[1].get_text()
-    print(wiki)
+response = requests.get(url).text
+soup = BeautifulSoup(response, 'html5lib')
+wiki = soup.find_all('p')[0].get_text()
+if wiki.replace("\n", "").strip() == '':
+    wiki = soup.find_all('p')[1].get_text()
+print(wiki)
 ```
 
 ---
@@ -624,40 +654,40 @@ if response.status_code == 200:
 先問使用者要爬哪個維基百科條目
 然後把他的第一段介紹爬下來顯示出來
 
+```
+想要查甚麼: 媽媽
+母親簡稱母，或稱媽媽、娘，是一種親屬關係的稱謂，
+是子女對雙親中的女性的稱呼。母親和子女是重要的直
+系親屬關係之一，通常具有親密關係。
+```
+
 ---
 
 # 解答
 
 ```python
+import requests
+from bs4 import BeautifulSoup
+x = input("想要查甚麼: ")
+url = 'https://zh.m.wikipedia.org/zh-tw/' + x
+response = requests.get(url).text
+soup = BeautifulSoup(response, 'html5lib')
+wiki = soup.find_all('p')[0].get_text()
+if wiki.replace("\n", "").strip() == '':
+    wiki = soup.find_all('p')[1].get_text()
+print(wiki)
+```
+---
 
 # 爬爬校園公告
 
----
-
-- 引入需要用到的模組
-- 進入到[學校公告](https://ljjhs.tc.edu.tw/p/403-1080-1244-1.php?Lang=zh-tw)並複製他的網址
-- 用名叫url的變數儲存這條網址(字串)
-- 以GET方式向網站請求資料，並儲存到變數
-```python
-from bs4 import BeautifulSoup
-import requests
-url = "網址"
-response = requests.get(url).text
-print(response) #看看他的HTML
-```
+你可以選擇你自已的學校
+這裡以[龍津高中](https://ljjhs.tc.edu.tw/p/403-1080-1244-1.php?Lang=zh-tw)為例
+~~因為我喜歡龍~~
 
 ---
 
-把response丟給美麗湯4解析
-
-```python
-soup = BeautifulSoup(response, 'html5lib')
-
-```
-
----
-
-### **接下來我們來分析一下公告的HTML**
+### **我們來分析一下公告的HTML**
 
 ---
 
