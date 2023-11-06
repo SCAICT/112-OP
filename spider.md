@@ -4,7 +4,7 @@ theme: uncover
 paginate: true
 backgroundColor: #000
 color: #fff
-backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/spider poster-light.svg")
+backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/img/spider poster-light.svg")
 ---
 <style>
   :root{
@@ -51,7 +51,7 @@ backgroundImage: url("https://raw.githubusercontent.com/SCAICT/112-OP/main/spide
 
 
 
-![bg right 120%](img/EMr.png)
+![bg right 120%](https://raw.githubusercontent.com/SCAICT/112-OP/main/img/EMr.png)
 
 ---
 
